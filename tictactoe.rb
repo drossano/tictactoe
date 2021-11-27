@@ -7,14 +7,16 @@ class GameLogic
 
   def game_loop
     loop do
-      puts @board.draw_board
-      @player_x.player_move
-      @board.game_array[@player_x.row][@player_x.column] = @player_x.player_symbol
-      puts @board.draw_board
-      @player_o.player_move
-      @board.game_array[@player_o.row][@player_o.column] = @player_o.player_symbol
-      puts @board.draw_board
+      player_turn(@player_x)
+      player_turn(@player_o)
     end
+  end
+
+  def player_turn(player)
+    puts @board.draw_board
+    column = player.player_input("column")
+    row = player.player_input("row")
+    @board.game_array[row][column] = player.player_symbol
   end
 end
 
@@ -44,22 +46,14 @@ class Player
     @player_symbol = player_symbol
   end
 
-  def player_move
-    until input_range(@column)
-      puts "Player #{player_symbol}, please enter the column for your move."
-      @column = gets.chomp.to_i
-    end
-    @column -= 1
-    until input_range(@row)
-      puts "Player #{player_symbol}, please enter the row for your move."
-      @row = gets.chomp.to_i
-    end
-    @row -= 1
-  end
-
-  def input_range(input)
+  def player_input(series)
     input_range = [1, 2, 3]
-    input_range.include?(input)
+    input = nil
+    until input_range.include?(input)
+      puts "Player #{player_symbol}, please enter the #{series} for your move."
+      input = gets.chomp.to_i
+    end
+    input - 1
   end
 end
 
