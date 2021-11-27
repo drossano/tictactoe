@@ -14,9 +14,16 @@ class GameLogic
 
   def player_turn(player)
     puts @board.draw_board
-    column = player.player_input("column")
-    row = player.player_input("row")
-    @board.game_array[row][column] = player.player_symbol
+    loop do
+      column = player.player_input("column")
+      row = player.player_input("row")
+      if @board.game_array[row][column] == " "
+        @board.game_array[row][column] = player.player_symbol
+        break
+      else
+        puts "This space is taken, try again."
+      end
+    end
   end
 end
 
