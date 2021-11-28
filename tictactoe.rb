@@ -12,10 +12,16 @@ class GameLogic
       if check_for_win(@player_x.player_symbol)
         puts "Player X wins!"
         break
+      elsif draw
+        puts "Draw!"
+        break
       end
       player_turn(@player_o)
       if check_for_win(@player_o.player_symbol)
         puts "Player O wins!"
+        break
+      elsif draw
+        puts "Draw!"
         break
       end
     end
@@ -36,7 +42,7 @@ class GameLogic
   end
 
   def check_for_win(symbol)
-    [row_win(symbol), column_win(symbol)].any? { |win_condition| win_condition == true}
+    [row_win(symbol), column_win(symbol), diagonal_win(symbol)].any? { |win_condition| win_condition == true }
   end
 
   def row_win(symbol)
@@ -49,6 +55,19 @@ class GameLogic
     columns = @board.game_array.transpose
     columns.any? do |column|
       column.all? { |space| space == symbol}
+    end
+  end
+
+  def diagonal_win(symbol)
+    diagonals = [[@board.game_array[0][0], @board.game_array[1][1], @board.game_array[2][2]], [@board.game_array[2][0], @board.game_array[1][1], @board.game_array[0][2]]]
+    diagonals.any? do |diagonal|
+      diagonal.all? { |space| space == symbol }
+    end
+  end
+
+  def draw
+    @board.game_array.all? do |row|
+      p row.all?{ |space| space != " "}
     end
   end
 end
