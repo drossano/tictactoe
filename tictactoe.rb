@@ -6,23 +6,42 @@ class GameLogic
   end
 
   def game_loop
+    puts @board.draw_board
     loop do
       player_turn(@player_x)
+      if check_for_win(@player_x.player_symbol)
+        puts "Player X wins!"
+        break
+      end
       player_turn(@player_o)
+      if check_for_win(@player_o.player_symbol)
+        puts "Player O wins!"
+        break
+      end
     end
   end
 
   def player_turn(player)
-    puts @board.draw_board
     loop do
       column = player.player_input("column")
       row = player.player_input("row")
       if @board.game_array[row][column] == " "
         @board.game_array[row][column] = player.player_symbol
+        puts @board.draw_board
         break
       else
         puts "This space is taken, try again."
       end
+    end
+  end
+
+  def check_for_win(symbol)
+    row_win(symbol)
+  end
+
+  def row_win(symbol)
+    @board.game_array.any? do |row|
+      row.all?{ |space| space == symbol}
     end
   end
 end
