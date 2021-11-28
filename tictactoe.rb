@@ -36,12 +36,19 @@ class GameLogic
   end
 
   def check_for_win(symbol)
-    row_win(symbol)
+    [row_win(symbol), column_win(symbol)].any? { |win_condition| win_condition == true}
   end
 
   def row_win(symbol)
     @board.game_array.any? do |row|
-      row.all?{ |space| space == symbol}
+      row.all? { |space| space == symbol}
+    end
+  end
+
+  def column_win(symbol)
+    columns = @board.game_array.transpose
+    columns.any? do |column|
+      column.all? { |space| space == symbol}
     end
   end
 end
