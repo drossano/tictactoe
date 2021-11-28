@@ -9,19 +9,11 @@ class GameLogic
     puts @board.draw_board
     loop do
       player_turn(@player_x)
-      if check_for_win(@player_x.player_symbol)
-        puts "Player X wins!"
-        break
-      elsif draw
-        puts "Draw!"
+      unless check_for_win_or_draw(@player_x.player_symbol) == false
         break
       end
       player_turn(@player_o)
-      if check_for_win(@player_o.player_symbol)
-        puts "Player O wins!"
-        break
-      elsif draw
-        puts "Draw!"
+      unless check_for_win_or_draw(@player_o.player_symbol) == false
         break
       end
     end
@@ -41,8 +33,14 @@ class GameLogic
     end
   end
 
-  def check_for_win(symbol)
-    [row_win(symbol), column_win(symbol), diagonal_win(symbol)].any? { |win_condition| win_condition == true }
+  def check_for_win_or_draw(symbol)
+    if [row_win(symbol), column_win(symbol), diagonal_win(symbol)].any? { |win_condition| win_condition == true }
+      puts "Player #{symbol} wins!"
+    elsif draw
+      puts "Draw!"
+    else
+      false
+    end
   end
 
   def row_win(symbol)
