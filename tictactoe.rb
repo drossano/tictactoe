@@ -64,9 +64,7 @@ class GameLogic
   end
 
   def draw
-    @board.game_array.all? do |row|
-      row.all?{ |space| space != " "}
-    end
+    @board.game_array.flatten.all? { |space| space != " "}
   end
 end
 
