@@ -81,4 +81,36 @@ describe GameLogic do
       end
     end
   end
+
+  describe '#column_win' do
+    context 'where theres a win in the left column' do
+      it 'returns true' do
+        symbol = "X"
+        board = [[symbol, " ", " "],
+        [symbol, " ", " "], 
+        [symbol, " ", " "]]
+        expect(subject.column_win(symbol, board)).to eq(true)
+      end
+    end
+
+    context 'when theres a win in the middle column' do
+      it 'returns true' do
+        symbol = "X"
+        board = [[" ", symbol, " "],
+        [" ", symbol, " "], 
+        [" ", symbol, " "]]
+        expect(subject.column_win(symbol, board)).to eq(true)
+      end
+    end
+
+    context 'when theres a win in the right column' do
+      it 'returns true' do
+        symbol = "X"
+        board = [[" ", " ", symbol],
+        [" ", " ", symbol], 
+        [" ", " ", symbol]]
+        expect(subject.column_win(symbol, board)).to eq(true)
+      end
+    end
+  end
 end
