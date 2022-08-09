@@ -50,13 +50,33 @@ describe GameLogic do
   end
 
   describe '#row_win' do
-    context 'when theres a win in the top row' do
-      let(:top_row) { double('game')}
+
+    context 'when theres a win in the top row' do 
       it 'returns true' do
         symbol = "X"
         board = [[symbol, symbol, symbol],
         [" ", " ", " "],
         [" ", " ", " "]]
+        expect(subject.row_win(symbol, board)).to eq(true)
+      end
+    end
+
+    context 'when theres a win in the middle row' do
+      it 'returns true' do
+        symbol = "X"
+        board = [[" ", " ", " "],
+        [symbol, symbol, symbol],
+        [" ", " ", " "]]
+        expect(subject.row_win(symbol, board)).to eq(true)
+      end
+    end
+
+    context 'when theres a win in the bottom row' do
+      it 'returns true' do
+        symbol = "X"
+        board = [[" ", " ", " "],
+        [" ", " ", " "], 
+        [symbol, symbol, symbol]]
         expect(subject.row_win(symbol, board)).to eq(true)
       end
     end
