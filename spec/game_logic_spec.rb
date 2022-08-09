@@ -113,4 +113,15 @@ describe GameLogic do
       end
     end
   end
+
+  describe '#draw' do
+    context 'when theres a draw' do
+      it 'returns true' do
+        board = [["O", "X", "O"],
+        ["X", "X", "O"], 
+        ["X", "O", "X"]] 
+        expect(subject.draw(board)).to eq(true)
+      end
+    end
+  end
 end
