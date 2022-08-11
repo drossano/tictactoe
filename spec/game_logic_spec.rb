@@ -130,12 +130,22 @@ describe GameLogic do
     let(:player2) { instance_double(Player, player_symbol: 'o')}
     board = [[''], [''], ['']]
     context 'when player1 wins' do
-      before do 
+      before do
         allow(game_loop).to receive(:player_turn).with(player1, board)
         allow(game_loop).to receive(:check_for_win_or_draw).with(player1.player_symbol, board).and_return(true)
       end
       it 'stops loop and doesnt start player2s turn' do
-        expect(game_loop).not_to receive(:player_turn).with(player2, board)
+      end
+    end
+
+    context 'when player2 wins' do
+      before do
+        allow(game_loop).to receive(:player_turn).with(player1, board)
+        allow(game_loop).to receive(:check_for_win_or_draw).with(player1.player_symbol, board).and_return(true)
+        allow(game_loop).to receive(:player_turn).with(player2, board)
+      end
+      it 'stops the loop and doesnt start player1s turn' do
+        expect(game_loop).not_to receive(:player_turn).with(player1, board)
       end
     end
   end
