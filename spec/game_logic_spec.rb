@@ -50,7 +50,6 @@ describe GameLogic do
   end
 
   describe '#row_win' do
-
     context 'when theres a win in the top row' do 
       it 'returns true' do
         symbol = "X"
@@ -121,6 +120,22 @@ describe GameLogic do
         ["X", "X", "O"], 
         ["X", "O", "X"]] 
         expect(subject.draw(board)).to eq(true)
+      end
+    end
+  end
+
+  describe '#game_loop' do
+    subject(:game_loop){ described_class.new }
+    let(:player1) { instance_double(Player, player_symbol: 'x') }
+    let(:player2) { instance_double(Player, player_symbol: 'o')}
+    board = [[''], [''], ['']]
+    context 'when player1 wins' do
+      before do 
+        allow(game_loop).to receive(:player_turn).with(player1, board)
+        allow(game_loop).to receive(:check_for_win_or_draw).with(player1.player_symbol, board).and_return(true)
+      end
+      it 'stops loop and doesnt start player2s turn' do
+        expect(game_loop).not_to receive(:player_turn).with(player2, board)
       end
     end
   end

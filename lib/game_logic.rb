@@ -8,25 +8,25 @@ class GameLogic
     @player_o = Player.new("O")
   end
 
-  def game_loop
+  def game_loop(player1, player2, board)
     puts @board.draw_board
     loop do
-      player_turn(@player_x)
-      break if check_for_win_or_draw(@player_x.player_symbol) == true
+      player_turn(player1, board)
+      break if check_for_win_or_draw(player1.player_symbol, board) == true
 
-      player_turn(@player_o)
-      break if check_for_win_or_draw(@player_o.player_symbol) == true
+      player_turn(player2, board)
+      break if check_for_win_or_draw(player2.player_symbol, board) == true
 
     end
   end
 
-  def player_turn(player)
+  def player_turn(player, board)
     loop do
       column = player.player_input("column")
       row = player.player_input("row")
-      if @board.game_array[row][column] == " "
-        @board.game_array[row][column] = player.player_symbol
-        puts @board.draw_board
+      if board[row][column] == " "
+        board[row][column] = player.player_symbol
+        puts board
         break
       else
         puts "This space is taken, try again."
