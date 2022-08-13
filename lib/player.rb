@@ -6,12 +6,16 @@ class Player
   end
 
   def player_input
-    input_range = [1, 2, 3]
+    input_range = (1..9).to_a
     input = nil
-    until input_range.include?(input)
-      puts "Player #{player_symbol}, please enter the #{series} for your move."
+    puts "Player #{player_symbol}, please enter a number from 1-9 to fill in the corresponding space."
+    loop do
       input = gets.chomp.to_i
+      if input_range.include?(input)
+        return input - 1
+      else
+        puts "Incorrect entry. Please enter a number between 1 and 9."
+      end
     end
-    input - 1
   end
 end
