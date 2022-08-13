@@ -5,7 +5,7 @@ class Player
     @player_symbol = player_symbol
   end
 
-  def player_input(series)
+  def player_input
     input_range = [1, 2, 3]
     input = nil
     until input_range.include?(input)

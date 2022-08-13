@@ -16,22 +16,24 @@ class GameLogic
 
       player_turn(player2, board)
       break if check_for_win_or_draw(player2.player_symbol, board) == true
-
     end
   end
 
   def player_turn(player, board)
     loop do
-      column = player.player_input("column")
-      row = player.player_input("row")
-      if board[row][column] == " "
-        board[row][column] = player.player_symbol
+      space = player.player_input
+      if space_empty?(board)
+        board[space] = player.player_symbol
         puts board
         break
       else
         puts "This space is taken, try again."
       end
     end
+  end
+
+  def space_empty?(board)
+    board[space] == " "
   end
 
   def check_for_win_or_draw(symbol, board)

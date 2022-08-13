@@ -135,6 +135,7 @@ describe GameLogic do
         allow(game_loop).to receive(:check_for_win_or_draw).with(player1.player_symbol, board).and_return(true)
       end
       it 'stops loop and doesnt start player2s turn' do
+        expect(game_loop).not_to receive(:player_turn).with(player2, board)
       end
     end
 
@@ -146,6 +147,38 @@ describe GameLogic do
       end
       it 'stops the loop and doesnt start player1s turn' do
         expect(game_loop).not_to receive(:player_turn).with(player1, board)
+      end
+    end
+  end
+
+  describe '#player_turn' do
+    subject(:game_turn) { described_class.new }
+    let(:player) {instance_double(Player, player_symbol: 'x') }
+
+    context 'when a free space is entered' do
+      before do
+        empty_space = 1
+        allow(player).to receive(:player_input).and_return(empty_space)
+        allow(game_turn).to receive(:space_empty?).and_return(true)
+      end
+      it ' returnts the board and ends the loop' do
+        board = [['', '', ''], ['', '', ''], ['', '', '']]
+        error_message = "This space is taken, try again."
+        expect(game_turn).not_to receive(:puts).with(error_message)
+        #game_turn.player_turn(player, board)
+      end
+    end
+    context 'a taken space is entered once' do
+      before do
+        allow(player).to receive(:player_input).and_return(1)
+        allow(game_turn).to receive(:space_empty?).and_return(false,true)
+      end
+      it 'displays the error message once' do
+        board = [['', '', ''], ['', '', ''], ['', '', '']]
+        error_message = "This space is taken, try again."
+        expect(game_turn).to receive(:puts).with(error_message).once
+        expect(game_turn).not_to receive(:puts).with(error_message)
+        game_turn.player_turn(player, board)
       end
     end
   end
