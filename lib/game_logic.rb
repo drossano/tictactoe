@@ -22,7 +22,7 @@ class GameLogic
   def player_turn(player, board)
     loop do
       space = player.player_input
-      if space_empty?(board)
+      if space_empty?(board, space)
         board[space] = player.player_symbol
         puts board
         break
@@ -32,7 +32,7 @@ class GameLogic
     end
   end
 
-  def space_empty?(board)
+  def space_empty?(board, space)
     board[space] == " "
   end
 
