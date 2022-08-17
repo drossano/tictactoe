@@ -2,14 +2,10 @@ require_relative "./game_board"
 require_relative "./player"
 
 class GameLogic
-  def initialize
-    @board = GameBoard.new
-    @player_x = Player.new("X")
-    @player_o = Player.new("O")
-  end
+
 
   def game_loop(player1, player2, board)
-    puts @board.draw_board
+    puts board.draw_board
     loop do
       player_turn(player1, board)
       break if check_for_win_or_draw(player1.player_symbol, board) == true
@@ -33,7 +29,7 @@ class GameLogic
   end
 
   def space_empty?(board, space)
-    board[space] == " "
+    board.game_array[space].is_a?(Numeric)
   end
 
   def check_for_win_or_draw(symbol, board)

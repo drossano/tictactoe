@@ -185,18 +185,18 @@ describe GameLogic do
 
   describe '#space_empty?' do
     subject(:game_space) { described_class.new }
-    context 'when the space is empty' do
+    context 'when the space is contains a number' do
       it 'returns true' do
-        board = [1, " "]
-        empty_space = 1
+        board = [1, "x"]
+        empty_space = 0
         expect(game_space.space_empty?(board, empty_space)).to eq(true)
       end
     end
 
-    context 'when the space is not empty' do
+    context 'when the space is not a number' do
       it 'returns false' do
-        board = [1, " "]
-        taken_space = 0
+        board = [1, "x"]
+        taken_space = 1
         expect(game_space.space_empty?(board, taken_space)).to eq(false)
       end
     end
