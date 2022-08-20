@@ -50,7 +50,7 @@ class GameLogic
   end
 
   def column_win(symbol, board)
-    columns = board.transpose
+    columns = [board.game_array[0], board.game_array[3], board.game_array[6]],[board.game_array[1], board.game_array[4], board.game_array[7]], [board.game_array[2], board.game_array[5], board.game_array[8]]
     columns.any? do |column|
       column.all? { |space| space == symbol}
     end
