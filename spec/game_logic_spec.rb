@@ -124,11 +124,10 @@ describe GameLogic do
   end
 
   describe '#draw' do
+    let(:board) { instance_double(GameBoard)}
     context 'when theres a draw' do
       it 'returns true' do
-        board = [["O", "X", "O"],
-        ["X", "X", "O"], 
-        ["X", "O", "X"]] 
+        allow(board).to receive(:game_array).and_return(["O", "X", "O", "X", "X", "O","X", "O", "X"] )
         expect(subject.draw(board)).to eq(true)
       end
     end

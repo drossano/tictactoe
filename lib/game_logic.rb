@@ -16,12 +16,11 @@ class GameLogic
   end
 
   def player_turn(player, board)
-    p player
     loop do
       space = player.player_input
       if space_empty?(board, space)
         board.game_array[space] = player.player_symbol
-        puts board.game_board
+        puts board.draw_board
         break
       else
         puts "This space is taken, try again."
@@ -64,6 +63,6 @@ class GameLogic
   end
 
   def draw(board)
-    board.flatten.all? { |space| space != " "}
+    board.game_array.all? { |space| !(space.is_a?(Numeric)) }
   end
 end

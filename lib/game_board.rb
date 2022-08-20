@@ -6,7 +6,7 @@ class GameBoard
   end
 
   def draw_board
-    @game_board = "#{@game_array[0]} | #{game_array[1]} | #{game_array[2]}" + "\n" +
+   "#{@game_array[0]} | #{game_array[1]} | #{game_array[2]}" + "\n" +
                   "——┼———┼——" + "\n" +
                   "#{game_array[3]} | #{game_array[4]} | #{game_array[5]}" + "\n" +
                   "——┼———┼——" + "\n" +
