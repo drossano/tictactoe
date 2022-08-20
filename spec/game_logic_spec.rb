@@ -104,6 +104,25 @@ describe GameLogic do
     end
   end
 
+  describe '#diagonal_win' do
+    let(:board) { instance_double(GameBoard)}
+    context 'when the left to right diagonal has a win' do
+      it 'returns true' do
+        symbol = "X"
+        allow(board).to receive(:game_array).and_return([symbol, " ", " ", " ", symbol, " ", " ", " ", symbol])
+        expect(subject.diagonal_win(symbol, board)).to eq(true)
+      end
+    end
+
+    context 'when the right to left diagonal has a win' do
+      it 'returns true' do
+        symbol = "X"
+        allow(board).to receive(:game_array).and_return([" ", " ", symbol, " ", symbol, " ", symbol, " ", " "])
+        expect(subject.diagonal_win(symbol, board)).to eq(true)
+      end
+    end
+  end
+
   describe '#draw' do
     context 'when theres a draw' do
       it 'returns true' do

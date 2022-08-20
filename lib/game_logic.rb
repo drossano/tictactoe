@@ -57,7 +57,7 @@ class GameLogic
   end
 
   def diagonal_win(symbol, board)
-    diagonals = [[board[0][0], board[1][1], board[2][2]], [board[2][0], board[1][1], board[0][2]]]
+    diagonals = [[board.game_array[0], board.game_array[4], board.game_array[8]], [board.game_array[6], board.game_array[4], board.game_array[2]] ]
     diagonals.any? do |diagonal|
       diagonal.all? { |space| space == symbol }
     end
