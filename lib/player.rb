@@ -12,7 +12,7 @@ class Player
     loop do
       input = gets.chomp.to_i
       if input_range.include?(input)
-        return input - 1
+        return input
       else
         puts "Incorrect entry. Please enter a number between 1 and 9."
       end

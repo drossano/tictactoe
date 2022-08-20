@@ -53,30 +53,24 @@ describe GameLogic do
     context 'when theres a win in the top row' do 
       it 'returns true' do
         symbol = "X"
-        board = [[symbol, symbol, symbol],
-        [" ", " ", " "],
-        [" ", " ", " "]]
-        expect(subject.row_win(symbol, board)).to eq(true)
+        board_array = [symbol, symbol, symbol," ", " ", " ", " ", " ", " "]
+        expect(subject.row_win(symbol, board_array)).to eq(true)
       end
     end
 
     context 'when theres a win in the middle row' do
       it 'returns true' do
         symbol = "X"
-        board = [[" ", " ", " "],
-        [symbol, symbol, symbol],
-        [" ", " ", " "]]
-        expect(subject.row_win(symbol, board)).to eq(true)
+        board_array = [" ", " ", " ",symbol, symbol, symbol, " ", " ", " "]
+        expect(subject.row_win(symbol, board_array)).to eq(true)
       end
     end
 
     context 'when theres a win in the bottom row' do
       it 'returns true' do
         symbol = "X"
-        board = [[" ", " ", " "],
-        [" ", " ", " "], 
-        [symbol, symbol, symbol]]
-        expect(subject.row_win(symbol, board)).to eq(true)
+        board_array = [" ", " ", " ", " ", " ", " ", symbol, symbol, symbol,]
+        expect(subject.row_win(symbol, board_array)).to eq(true)
       end
     end
   end
@@ -154,6 +148,7 @@ describe GameLogic do
   describe '#player_turn' do
     subject(:game_turn) { described_class.new }
     let(:player) {instance_double(Player, player_symbol: 'x') }
+    let(:board) {instance_double(GameBoard)}
 
     context 'when a free space is entered' do
       before do
@@ -172,9 +167,11 @@ describe GameLogic do
       before do
         allow(player).to receive(:player_input).and_return(1)
         allow(game_turn).to receive(:space_empty?).and_return(false,true)
+        allow(board).to receive(:game_array).and_return((1..9).to_a)
+        allow(board).to receive(:game_board)
       end
       it 'displays the error message once' do
-        board = [['', '', ''], ['', '', ''], ['', '', '']]
+        #board.game_array = [['', '', ''], ['', '', ''], ['', '', '']]
         error_message = "This space is taken, try again."
         expect(game_turn).to receive(:puts).with(error_message).once
         expect(game_turn).not_to receive(:puts).with(error_message)
@@ -185,18 +182,27 @@ describe GameLogic do
 
   describe '#space_empty?' do
     subject(:game_space) { described_class.new }
+    let(:board) {instance_double(GameBoard)}
+
     context 'when the space is contains a number' do
+
+      before do
+        allow(board).to receive(:game_array).and_return((1..9).to_a)
+        allow(board).to receive(:game_board)
+      end
       it 'returns true' do
-        board = [1, "x"]
         empty_space = 0
         expect(game_space.space_empty?(board, empty_space)).to eq(true)
       end
     end
 
     context 'when the space is not a number' do
+      before do
+        allow(board).to receive(:game_array).and_return((1..8).to_a.push("x"))
+        allow(board).to receive(:game_board)
+      end
       it 'returns false' do
-        board = [1, "x"]
-        taken_space = 1
+        taken_space = 8
         expect(game_space.space_empty?(board, taken_space)).to eq(false)
       end
     end

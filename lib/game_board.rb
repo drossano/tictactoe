@@ -2,8 +2,7 @@ class GameBoard
   attr_accessor :game_board, :game_array
 
   def initialize
-    @game_array = (1..9).to_a.map{ |number| number.to_s}
-    p @game_array
+    @game_array = (1..9).to_a
   end
 
   def draw_board
